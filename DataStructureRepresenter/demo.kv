@@ -1,0 +1,20 @@
+GridLayout:
+    cols: 1
+
+    MDTextField:
+        id: textfield
+        pos_hint: {'center_x': 0, 'center_y': 0.95}
+        size_hint_x: None
+        width: 60
+
+    MDRectangleFlatButton:
+        size: (20, 20)
+        text: 'go!'
+        pos_hint: {'center_x': 0, 'center_y': 0.90}
+        on_release:
+            app.stack()
+
+    MDLabel:
+        id: label
+        halign: 'center'
+        valign: 'middle'

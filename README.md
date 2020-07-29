@@ -1,2 +1,1 @@
-
-Just remeber to open all files in the same place. 
+Download or open files in same directory.
