@@ -1,2 +1,2 @@
-
-Just remeber to open all files in the same place. 
+just download Demo.kv and Main.py 
+just these two files 
