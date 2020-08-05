@@ -38,8 +38,39 @@ class Queue(Screen):
         self.q_textfield.text = ''
 
 
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+
 class LinkedList(Screen):
-    pass
+    def __init__(self, **kwargs):
+        super(LinkedList, self).__init__(**kwargs)
+        self.head = None
+
+    def insert_at_begining(self, data):
+        node = Node(data, self.head)
+        self.head = node
+        self.root.ll_textfield.text =  str(self.head.data)
+        self.root.ll_textfield.text = self.root.ll_label.text
+
+    def insert_at_end(self, data):
+        if self.head is None:
+            self.head = Node(data, None)
+            return
+
+        itr = self.head
+        while itr.next:
+            itr = itr.next
+
+        itr.next = Node(data, None)
+
+    def insert_values(self, data_list):
+        self.head = None
+        for data in data_list:
+            self.insert_at_end(data)
+
 
 
 sm = ScreenManager()
@@ -47,6 +78,7 @@ sm.add_widget(Dselecter(name='dss'))
 sm.add_widget(Stack(name='stack'))
 sm.add_widget(Queue(name='queue'))
 sm.add_widget(LinkedList(name='ll'))
+
 
 class DemoApp(MDApp):
     def build(self):
