@@ -1,7 +1,10 @@
+import kivy
+import kivymd
+
 from kivymd.app import MDApp
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
-from DataStructureRepresenter.helper import screen_helper
+from helper import screen_helper
 from kivy.core.window import Window
 
 Window.size = (800, 700)
