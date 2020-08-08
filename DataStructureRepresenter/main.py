@@ -51,27 +51,45 @@ class LinkedList(Screen):
         super(LinkedList, self).__init__(**kwargs)
         self.head = None
 
+    def printLL(self):
+        current = self.head
+        store = []
+        while(current):
+            store.append(current.data)
+            # print(current.data)
+            current = current.next
+        return store
+
     def insert_at_begining(self, data):
-        node = Node(data, self.head)
+        node = Node(self.ll_textfield.text, self.head)
         self.head = node
-        self.root.ll_textfield.text =  str(self.head.data)
-        self.root.ll_textfield.text = self.root.ll_label.text
+        self.ll_textfield.text = ''
+        self.ll_label.text =  str(self.printLL())
 
     def insert_at_end(self, data):
         if self.head is None:
-            self.head = Node(data, None)
+            self.head = Node(self.ll_textfield.text)
+            self.ll_textfield.text = ''
+            self.ll_label.text =  str(self.printLL())
             return
 
         itr = self.head
         while itr.next:
             itr = itr.next
 
-        itr.next = Node(data, None)
+        itr.next = Node(self.ll_textfield.text)
+        self.ll_textfield.text = ''
+        self.ll_label.text =  str(self.printLL())
 
     def insert_values(self, data_list):
         self.head = None
         for data in data_list:
             self.insert_at_end(data)
+
+    def remove(self, data):
+        return
+        #TODO
+
 
 
 
@@ -84,8 +102,12 @@ sm.add_widget(LinkedList(name='ll'))
 
 class DemoApp(MDApp):
     def build(self):
-        self.theme_cls.theme_style = 'Dark'
+        self.theme_cls.theme_style = 'Light'
         return
 
 
 DemoApp().run()
+
+
+# data, next
+# (1, 2)->(2, 3)->(3, 4)->(4, none)

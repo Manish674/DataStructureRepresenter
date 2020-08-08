@@ -40,9 +40,15 @@ class LinkedList:
         for data in data_list:
             self.insert_at_end(data)
 
+    def printLL(self):
+        current = self.head
+        while(current):
+            print(current.data)
+            current = current.next
 
 
-ll = LinkedList()
+
+# ll = LinkedList()
 
 # no_of_values = int(input('how many values you want to enter'))
 # for i in range(int(no_of_values)):
@@ -58,4 +64,4 @@ ll = LinkedList()
 #     elif place ==3:
 #         ll.insert_at_end(user_input)
 
-ll.print()
+# ll.print()
