@@ -103,6 +103,7 @@ ScreenManager:
     name : 'll'
     ll_textfield: ll_textfield
     ll_label: ll_label
+
     GridLayout:
         cols: 1
         MDTextField:
@@ -122,18 +123,33 @@ ScreenManager:
             size: (20, 25)
             pos_hint: {'center_x': 0, 'center_y': 0.8}
             on_press:
+
                 root.insert_at_begining('a')
+
+               
+
 
         MDRectangleFlatButton:
             text:'insert at end'
             size: (20, 25)
             pos_hint: {'center_x':0 , 'center_y': 0.7}
+
             on_press:
                 root.insert_at_end('a')
+
+
+
 
         MDRectangleFlatButton:
             text: 'insert before head'
             size: (20, 25)
             pos_hint: {'center_x': 0, 'center_y': 0.6}
             on_press:
-                root.insert_at_befin
+                root.insert_head()
+
+        MDRectangleFlatButton:
+            text: 'back'
+            size: (20, 25)
+            pos_hint: {'center_x':0 , 'center_y': 0.5}
+            on_press:
+                root.manager.current = 'ds'

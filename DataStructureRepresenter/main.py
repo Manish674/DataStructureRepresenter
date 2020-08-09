@@ -40,12 +40,6 @@ class Queue(Screen):
         self.q_textfield.text = ''
 
 
-class Node:
-    def __init__(self, data, next=None):
-        self.data = data
-        self.next = next
-
-
 class LinkedList(Screen):
     def __init__(self, **kwargs):
         super(LinkedList, self).__init__(**kwargs)
@@ -71,11 +65,17 @@ class LinkedList(Screen):
             self.head = Node(self.ll_textfield.text)
             self.ll_textfield.text = ''
             self.ll_label.text =  str(self.printLL())
+
+        self.ll_value_holder = []
+
+    def insert_head(self):
+        if self.ll_textfield.text is '':
+
             return
 
-        itr = self.head
-        while itr.next:
-            itr = itr.next
+        self.ll_value_holder.insert(0, str(self.ll_textfield.text) + '-->')
+        self.ll_label.text = str(self.ll_value_holder)
+
 
         itr.next = Node(self.ll_textfield.text)
         self.ll_textfield.text = ''
@@ -90,6 +90,14 @@ class LinkedList(Screen):
         return
         #TODO
 
+
+    def insert_after_head(self):
+        if self.ll_value_holder is '':
+            self.ll_label.text = 'List is empty'
+            return
+
+        self.ll_value_holder.append(self.ll_textfield.text + '-->')
+        self.ll_label.text = str(self.ll_value_holder)
 
 
 
