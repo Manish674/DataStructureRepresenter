@@ -1,3 +1,5 @@
+import kivy
+import kivymd
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen, ScreenManager
 
@@ -41,14 +43,53 @@ class Queue(Screen):
 class LinkedList(Screen):
     def __init__(self, **kwargs):
         super(LinkedList, self).__init__(**kwargs)
+        self.head = None
+
+    def printLL(self):
+        current = self.head
+        store = []
+        while(current):
+            store.append(current.data)
+            # print(current.data)
+            current = current.next
+        return store
+
+    def insert_at_begining(self, data):
+        node = Node(self.ll_textfield.text, self.head)
+        self.head = node
+        self.ll_textfield.text = ''
+        self.ll_label.text =  str(self.printLL())
+
+    def insert_at_end(self, data):
+        if self.head is None:
+            self.head = Node(self.ll_textfield.text)
+            self.ll_textfield.text = ''
+            self.ll_label.text =  str(self.printLL())
+
         self.ll_value_holder = []
 
     def insert_head(self):
         if self.ll_textfield.text is '':
+
             return
 
         self.ll_value_holder.insert(0, str(self.ll_textfield.text) + '-->')
         self.ll_label.text = str(self.ll_value_holder)
+
+
+        itr.next = Node(self.ll_textfield.text)
+        self.ll_textfield.text = ''
+        self.ll_label.text =  str(self.printLL())
+
+    def insert_values(self, data_list):
+        self.head = None
+        for data in data_list:
+            self.insert_at_end(data)
+
+    def remove(self, data):
+        return
+        #TODO
+
 
     def insert_after_head(self):
         if self.ll_value_holder is '':
@@ -57,6 +98,7 @@ class LinkedList(Screen):
 
         self.ll_value_holder.append(self.ll_textfield.text + '-->')
         self.ll_label.text = str(self.ll_value_holder)
+
 
 
 sm = ScreenManager()
@@ -68,8 +110,12 @@ sm.add_widget(LinkedList(name='ll'))
 
 class DemoApp(MDApp):
     def build(self):
-        self.theme_cls.theme_style = 'Dark'
+        self.theme_cls.theme_style = 'Light'
         return
 
 
 DemoApp().run()
+
+
+# data, next
+# (1, 2)->(2, 3)->(3, 4)->(4, none)
