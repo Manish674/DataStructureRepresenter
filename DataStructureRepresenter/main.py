@@ -1,5 +1,3 @@
-import kivy
-import kivymd
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen, ScreenManager
 
@@ -40,6 +38,12 @@ class Queue(Screen):
         self.q_textfield.text = ''
 
 
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+
 class LinkedList(Screen):
     def __init__(self, **kwargs):
         super(LinkedList, self).__init__(**kwargs)
@@ -47,10 +51,10 @@ class LinkedList(Screen):
 
     def printLL(self):
         current = self.head
+        # to store values in one container
         store = []
-        while(current):
-            store.append(current.data)
-            # print(current.data)
+        while current:
+            store.append(f'({current.data} , {str(current.next)}) -->')
             current = current.next
         return store
 
@@ -58,48 +62,54 @@ class LinkedList(Screen):
         node = Node(self.ll_textfield.text, self.head)
         self.head = node
         self.ll_textfield.text = ''
-        self.ll_label.text =  str(self.printLL())
+        self.ll_label.text = str(self.printLL())
+
+    def get_length(self):
+        count = 0
+        itr = self.head
+        while itr:
+            count += 1
+            itr = itr.next
+
+        return count
 
     def insert_at_end(self, data):
         if self.head is None:
             self.head = Node(self.ll_textfield.text)
             self.ll_textfield.text = ''
-            self.ll_label.text =  str(self.printLL())
-
-        self.ll_value_holder = []
-
-    def insert_head(self):
-        if self.ll_textfield.text is '':
-
+            self.ll_label.text = str(self.printLL())
             return
 
-        self.ll_value_holder.insert(0, str(self.ll_textfield.text) + '-->')
-        self.ll_label.text = str(self.ll_value_holder)
-
+        itr = self.head
+        while itr.next:
+            itr = itr.next
 
         itr.next = Node(self.ll_textfield.text)
         self.ll_textfield.text = ''
-        self.ll_label.text =  str(self.printLL())
+        self.ll_label.text = str(self.printLL())
 
-    def insert_values(self, data_list):
-        self.head = None
-        for data in data_list:
-            self.insert_at_end(data)
+    def remove(self, index):
+        index = int(self.ll_textfield.text)
+        if index < 0 or index >= self.get_length():
+            raise Exception("Invalid Index")
 
-    def remove(self, data):
-        return
-        #TODO
-
-
-    def insert_after_head(self):
-        if self.ll_value_holder is '':
-            self.ll_label.text = 'List is empty'
+        if index == 0:
+            self.head = self.head.next
             return
 
-        self.ll_value_holder.append(self.ll_textfield.text + '-->')
-        self.ll_label.text = str(self.ll_value_holder)
+        count = 0
+        itr = self.head
 
+        while itr:
+            if count == index - 1:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+            count += 1
+        self.ll_label.text = str(self.show_linkedlist())
 
+    def show_linkedlist(self):
+        self.ll_label.text = str(self.printLL())
 
 sm = ScreenManager()
 sm.add_widget(Dselecter(name='dss'))
@@ -110,12 +120,11 @@ sm.add_widget(LinkedList(name='ll'))
 
 class DemoApp(MDApp):
     def build(self):
-        self.theme_cls.theme_style = 'Light'
+        self.theme_cls.theme_style = 'Dark'
         return
 
 
 DemoApp().run()
 
-
-# data, next
 # (1, 2)->(2, 3)->(3, 4)->(4, none)
+# data, next
